@@ -1,0 +1,155 @@
+!!!COM: Mozart, Wolfgang Amadeus
+!!!CDT: 1756/01/27/-1791/12/05/
+!!!CNT: German
+!!!OTL: Piano Sonata No. 11 in A major
+!!!SCT1: K1 331
+!!!SCT2: K6 300i
+!!!OMV: Mvmt. 1a
+!!!OMD: Thema: Andante grazioso
+!!!ODT: 1778-1873///
+**kern
+*staff1
+*>[A,A,B,B]
+*>norep[A,B]
+*>A
+*clefG2
+*k[f#c#g#]
+*A:
+*M6/8
+*MM72
+=1-
+*
+(8.cc#L
+16ddk)
+8cc#J
+4ee
+8ee
+=2
+(8.bL
+16cc#k)
+8bJ
+4dd
+8dd
+=3
+4a
+8a
+4b
+8b
+*
+=4
+*
+4cc#
+(16eeLL
+16ddJJ)
+(4cc#
+8b)
+*
+=5
+*
+(8.cc#L
+16ddk)
+8cc#J
+4ee
+8ee
+=6
+(8.bL
+16cc#k)
+8bJ
+4dd
+8dd
+=7
+4a
+8b
+4cc#
+8f# 8b 8dd
+*
+=8
+4e 4a 4cc#
+8d 8e 8g# 8b
+4c# 4e 4a
+8r
+=9:|!|:
+*>B
+(8.eeL
+.
+16ff#k)
+8eeJ
+4ff#
+.
+8ff#
+=10
+(32ff#qLLL>
+32gg#qJJJ
+(8.aaL)
+.
+16gg#k)
+8ff#J
+(8ff#L
+8ee)
+8ee'J
+=11
+(8eeL
+8cc#)
+8a'J
+(8eeL
+8dd)
+8b'J
+=12
+*
+4.ryy
+.
+.
+(4cc#
+8b)
+*
+=13
+*
+(8.cc#L
+16ddk)
+8cc#J
+4ee
+8ee
+=14
+(8.bL
+16cc#k)
+8bJ
+4dd
+8dd
+=15
+4a/
+8b/
+4cc#/
+8f# 8b 8dd
+*
+=16
+*
+4e 4a 4cc#
+8e 8g# 8b
+4g# (4b
+8a 8cc#)
+=17
+4a 4cc#
+8g# 8dd
+4a 4ee
+8ryy
+.
+.
+=18
+4a)
+(16cc#LL
+16bJJ)
+4a
+8r
+*
+==:|!
+*-
+!!!RDF**kern: > = above
+!!!RDF**kern: < = below
+!!!SMS: Alte Mozart-Ausgabe, Band 20, Breitkopf & Härtel 1877-1883.
+!!!ONB: Stich und Druck von Breitkopf & Härtel in Leipzig
+!!!ONB: Ausgegeben 1878
+!!!ENC: Craig Stuart Sapp
+!!!END: 2009/09/29/
+!!!EED: Craig Stuart Sapp
+!!!EEV: 2017/01/27/
+!!!title: @{OTL}, K 331 (300i), @{OMV}
