@@ -129,7 +129,8 @@ function getNotePitch(element) {
         .replace("s", "#").replace("f", "-").replace("x", "##");
     }
   }
-  return pitchName + accidental;
+  // Ensure we're matching the whole note by adding a negative lookahead.
+  return pitchName + accidental + "(?![a-gA-G#\\-n])";
 }
 
 function search() {
