@@ -17,3 +17,12 @@ body {
   flex: 1;
   width: 50%;
 }
+
+#output .note.or use {
+  fill: transparent;
+}
+
+/* @font-face {
+    font-family:"Leipzig";
+    src: url("/web/Leipzig-5.2.ttf");
+} */

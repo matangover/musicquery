@@ -1,4 +1,5 @@
 var vrvToolkit;
+var symbolDefinitions = "";
 
 function render(data, output) {
   try {
@@ -13,10 +14,42 @@ function render(data, output) {
   }
   output.html(svg);
   // $("#output svg").width("100%").height("100%");
+  renderCustomElements(output);
+}
+
+function renderCustomElements(output) {
+  var svg = output.children("svg");
+  addCustomSymbolDefinitions(svg);
+  svg = output.children("svg");
+  svg.find(".tuplet.quantifier").each(function(index, quantifier) {
+    $quantifier = $(quantifier);
+    var regexQuantifier = vrvToolkit.getElementAttr($quantifier.attr("id")).quantifier;
+    var minimum = (regexQuantifier == "?" || regexQuantifier == "*") ? 0 : 1;
+    var maximum = regexQuantifier == "?" ? 1 : null;
+    // #E88A is the colon.
+    var digits = $quantifier.children("use[xlink\\:href!='#E88A']");
+    alterDigit($(digits[0]), minimum);
+    alterDigit($(digits[1]), maximum);
+  });
+}
+
+function alterDigit(digit, newValue) {
+  // https://w3c.github.io/smufl/gitbook/tables/tuplets.html
+  if (newValue === null) {
+    digit.remove();
+  } else {
+    digit.attr("xlink:href", "#E88" + newValue);
+  }
+}
+
+function addCustomSymbolDefinitions(svg) {
+  svg.find("defs").append(symbolDefinitions);
+  svg.parent().html(svg.parent().html());
 }
 
 $(function() {
   vrvToolkit = new verovio.toolkit();
+  initializeSymbolDefinitions();
   $("#input").on("input", function() {
     render($("#input").val(), $("#output"));
   });
@@ -78,6 +111,9 @@ var ANY_ACCIDENTAL = "(#+|-+|n)?";
 var getRegexFor = {
   beam: getRegexForChildren,
   note: function (element) {
+    if (element.attr("type") == "or") {
+      return getRegexForOr();
+    }
     var duration = getNoteDuration(element);
     var pitch = getNotePitch(element);
     // https://musiccog.ohio-state.edu/Humdrum/representations/kern.html#Context%20Dependencies
@@ -89,9 +125,7 @@ var getRegexFor = {
     var quantifier = element.attr("quantifier") || "";
     return "(" + childrenRegex + ")" + quantifier;
   },
-  beatRpt: function (element) {
-    return "|";
-  }
+  space: function () { return ""; }
 };
 
 function getNoteDuration(element) {
@@ -135,6 +169,10 @@ function getNotePitch(element) {
   return pitchName + accidental + "(?![a-gA-G#\\-n])";
 }
 
+function getRegexForOr(element) {
+  return "|";
+}
+
 function search() {
   var pattern = meiToRegex();
   var data = $("#humdrum-input").val();
@@ -173,4 +211,17 @@ function getLineIndex(characterIndex, lines) {
     }
   }
   throw new Error("Character index greater than string length.");
+}
+
+function initializeSymbolDefinitions() {
+  var symbols = ["E880-tuplet0.xml", "E881-tuplet1.xml"];
+  for (var i = 0; i < symbols.length; i++) {
+    $.ajax({
+      url: "resources/symbols/" + symbols[i],
+      dataType: "text",
+      success: function(data) {
+        symbolDefinitions += data;
+      }
+    });
+  }
 }
