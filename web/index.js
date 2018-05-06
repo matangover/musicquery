@@ -17,7 +17,7 @@ function render(data, output) {
 
 $(function() {
   vrvToolkit = new verovio.toolkit();
-  $("#input").on("input change", function() {
+  $("#input").on("input", function() {
     render($("#input").val(), $("#output"));
   });
   $("#humdrum-input").on("input", function() {
@@ -32,6 +32,12 @@ $(function() {
     render(data, $("#humdrum-output"));
   });
   $("#search").click(search);
+  $("#reset").click(function() {
+    $.get("/scores/mozart_melody.krn", function(data) {
+      $("#humdrum-input").val(data);
+      render(data, $("#humdrum-output"));
+    });
+  });
 });
 $(window).resize(function() {
   render($("#input").val(), $("#output"));
@@ -43,7 +49,7 @@ function meiToRegex() {
   var meiPattern = $($.parseXML(meiText));
   var layer = meiPattern.find("music body mdiv score section measure staff layer");
   if (layer.length != 1) {
-    throw new Exception("Found " + section.length + " layers instead of 1.");
+    throw new Error("Found " + section.length + " layers instead of 1.");
   }
   var regex = getRegexForChildren(layer);
   return regex;
@@ -58,13 +64,13 @@ function getRegexForChildren(element) {
   return regex;
 }
 
-var RECORD_START = "^|\\t";
+var RECORD_START = "(^|\\t)";
 // Skip lines starting with:
 //  . - null record.
 //  ! - comment.
 //  * - interpretation / tandem interpretation
 //  = - barline
-var OPTIONAL_SKIPPED_LINES = "(^[!.*=].*\n)*";
+var OPTIONAL_SKIPPED_LINES = "(^[!.*=].*\n)*?";
 var OPTIONAL_SLUR_START = "(&?{)?(&?\\()?\\[?";
 var ANY_ACCIDENTAL = "(#+|-+|n)?";
 var getRegexFor = {
@@ -73,7 +79,7 @@ var getRegexFor = {
     var duration = getNoteDuration(element);
     var pitch = getNotePitch(element);
     // https://musiccog.ohio-state.edu/Humdrum/representations/kern.html#Context%20Dependencies
-    return OPTIONAL_SKIPPED_LINES + RECORD_START + OPTIONAL_SLUR_START + duration + pitch + ".*\n";
+    return RECORD_START + OPTIONAL_SLUR_START + duration + pitch + ".*\n" + OPTIONAL_SKIPPED_LINES;
   },
   tuplet: function (element) {
     // TODO: Handle actual tuplets (those not signifying grouping).
@@ -127,5 +133,41 @@ function getNotePitch(element) {
 }
 
 function search() {
-  var regex = meiToRegex();
+  var pattern = meiToRegex();
+  var data = $("#humdrum-input").val();
+  console.log(pattern);
+  // Multiline regex - treat "^" as "start of line" rather than "start of
+  // string".
+  var regex = new RegExp(pattern, "gm");
+  var dataLines = data.split("\n");
+  var outputLines = dataLines.slice();
+  while ((match = regex.exec(data)) !== null) {
+    console.log("Match!", match.index, regex.lastIndex);
+    var startLine = getLineIndex(match.index, dataLines);
+    var endLine = getLineIndex(regex.lastIndex - 2, dataLines);
+    for (var lineIndex = startLine; lineIndex <= endLine; lineIndex++) {
+      if (outputLines[lineIndex][0] != ".") {
+        outputLines[lineIndex] += "@";
+      }
+    }
+  }
+  // Remove empty lines (invalid in Humdrum).
+  outputLines = outputLines.filter(function(line) {
+    return line != "";
+  });
+  outputLines.push("!!!RDF**kern: @ = marked note");
+  $("#humdrum-input").val(outputLines.join("\n"));
+  render($("#humdrum-input").val(), $("#humdrum-output"));
+}
+
+function getLineIndex(characterIndex, lines) {
+  var characters = 0;
+  for (var lineIndex = 0; lineIndex < lines.length; lineIndex++) {
+    // +1 to account for the \n.
+    characters += lines[lineIndex].length + 1;
+    if (characterIndex + 1 <= characters) {
+      return lineIndex;
+    }
+  }
+  throw new Error("Character index greater than string length.");
 }
