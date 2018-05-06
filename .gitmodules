@@ -1,0 +1,3 @@
+[submodule "scores/bach-371-chorales"]
+	path = scores/bach-371-chorales
+	url = https://github.com/craigsapp/bach-371-chorales.git
