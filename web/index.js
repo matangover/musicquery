@@ -23,7 +23,7 @@ $(function() {
   $("#humdrum-input").on("input", function() {
     render($("#humdrum-input").val(), $("#humdrum-output"));
   });
-  $.get("/patterns/siciliana.mei", function(data) {
+  $.get("/patterns/mozart/siciliana.mei", function(data) {
     $("#input").val(data);
     render(data, $("#output"));
   });
@@ -70,6 +70,8 @@ var RECORD_START = "(^|\\t)";
 //  ! - comment.
 //  * - interpretation / tandem interpretation
 //  = - barline
+// Use non-greedy operator (*?) so that rows are only captured if necessary to
+// satisfy the pattern.
 var OPTIONAL_SKIPPED_LINES = "(^[!.*=].*\n)*?";
 var OPTIONAL_SLUR_START = "(&?{)?(&?\\()?\\[?";
 var ANY_ACCIDENTAL = "(#+|-+|n)?";
