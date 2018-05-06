@@ -1,28 +1,42 @@
 var vrvToolkit;
 
-function render() {
-  var data = $("#input").val();
-  if (!data) return;
+function render(data, output) {
   try {
     scale = 40;
     var svg = vrvToolkit.renderData(data, {
-      pageHeight: $("#output").height() / (scale / 100),
-      pageWidth: $("#output").width() / (scale / 100),
+      pageHeight: output.height() / (scale / 100),
+      pageWidth: output.width() / (scale / 100),
       scale: scale
     });
   } catch (e) {
     console.log(e);
   }
-  $("#output").html(svg);
+  output.html(svg);
   // $("#output svg").width("100%").height("100%");
 }
 
 $(function() {
   vrvToolkit = new verovio.toolkit();
-  render();
-  $("#input").on("input", render);
+  $("#input").on("input change", function() {
+    render($("#input").val(), $("#output"));
+  });
+  $("#humdrum-input").on("input", function() {
+    render($("#humdrum-input").val(), $("#humdrum-output"));
+  });
+  $.get("/patterns/siciliana.mei", function(data) {
+    $("#input").val(data);
+    render(data, $("#output"));
+  });
+  $.get("/scores/mozart_melody.krn", function(data) {
+    $("#humdrum-input").val(data);
+    render(data, $("#humdrum-output"));
+  });
+  $("#search").click(search);
 });
-$(window).resize(render);
+$(window).resize(function() {
+  render($("#input").val(), $("#output"));
+  render($("#humdrum-input").val(), $("#humdrum-output"));
+});
 
 function meiToRegex() {
   var meiText = $("#input").val();
@@ -110,4 +124,8 @@ function getNotePitch(element) {
     }
   }
   return pitchName + accidental;
+}
+
+function search() {
+  var regex = meiToRegex();
 }
