@@ -19,15 +19,15 @@
 *MM72
 =1-
 *
-(8.cc#L
-16ddk)
-8cc#J
+(8.cc#L@
+16ddk)@
+8cc#J@
 4ee
 8ee
 =2
-(8.bL
-16cc#k)
-8bJ
+(8.bL@
+16cc#k)@
+8bJ@
 4dd
 8dd
 =3
@@ -46,15 +46,15 @@
 *
 =5
 *
-(8.cc#L
-16ddk)
-8cc#J
+(8.cc#L@
+16ddk)@
+8cc#J@
 4ee
 8ee
 =6
-(8.bL
-16cc#k)
-8bJ
+(8.bL@
+16cc#k)@
+8bJ@
 4dd
 8dd
 =7
@@ -64,25 +64,25 @@
 8f# 8b 8dd
 *
 =8
-4e 4a 4cc#
-8d 8e 8g# 8b
-4c# 4e 4a
+4e 4a 4cc#@
+8d 8e 8g# 8b@
+4c# 4e 4a@
 8r
 =9:|!|:
 *>B
-(8.eeL
+(8.eeL@
 .
-16ff#k)
-8eeJ
+16ff#k)@
+8eeJ@
 4ff#
 .
 8ff#
 =10
 (32ff#qLLL>
-32gg#qJJJ
-(8.aaL)
+32gg#qJJJ@
+(8.aaL)@
 .
-16gg#k)
+16gg#k)@
 8ff#J
 (8ff#L
 8ee)
@@ -104,22 +104,22 @@
 *
 =13
 *
-(8.cc#L
-16ddk)
-8cc#J
+(8.cc#L@
+16ddk)@
+8cc#J@
 4ee
 8ee
 =14
-(8.bL
-16cc#k)
-8bJ
+(8.bL@
+16cc#k)@
+8bJ@
 4dd
 8dd
 =15
 4a/
-8b/
-4cc#/
-8f# 8b 8dd
+8b/@
+4cc#/@
+8f# 8b 8dd@
 *
 =16
 *
@@ -128,9 +128,9 @@
 4g# (4b
 8a 8cc#)
 =17
-4a 4cc#
-8g# 8dd
-4a 4ee
+4a 4cc#@
+8g# 8dd@
+4a 4ee@
 8ryy
 .
 .
@@ -152,4 +152,4 @@
 !!!END: 2009/09/29/
 !!!EED: Craig Stuart Sapp
 !!!EEV: 2017/01/27/
-!!!title: @{OTL}, K 331 (300i), @{OMV}
+!!!RDF**kern: @ = marked note
