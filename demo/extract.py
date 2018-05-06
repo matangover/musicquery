@@ -12,7 +12,7 @@ def write_to_clipboard(output):
 # extractx -s $1 -mr mozart_sonata.krn > newfile.nkrn
 # Where $1 is e.g. 1a, 1b, 2a, 2b (spine and subspine).
 
-input_filename = "mozart_melody2.nkrn"
+input_filename = sys.argv[1]
 input_file = open(input_filename)
 # data = re.sub(r"[JL]", "", data) # remove stem information
 # TODO - measure boundaries
@@ -70,7 +70,7 @@ def preprocess_pattern(pattern):
     # match any collection of notes - minimal (non-greedy)
     # pattern = pattern.replace(r"\a", "(.|\n)+?")
     # match any pitch (not a rest)
-    pattern = pattern.replace(r"\p", r"[a-gA-G]+[#\-]?") # todo double sharp, flat
+    pattern = pattern.replace(r"\p", r"[a-gA-G]+[#\-n]?") # todo double sharp, flat
     return pattern
 
 
@@ -101,4 +101,4 @@ def get_original_line_number(offset):
     return line_map[new_line_number]
 
 # print re.findall(preprocess_pattern(siciliana), data, re.MULTILINE) # | re.DOTALL)
-f(siciliana)
+# f(siciliana)
