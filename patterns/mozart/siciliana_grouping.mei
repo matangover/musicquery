@@ -14,21 +14,17 @@
                     </scoreDef>
                     <section>
                         <measure n="0">
-<!-- <dir tstamp="1"><rend fontname="Leipzig" fontstyle="normal" fontsize="180%"></rend>+</dir> -->
                             <staff n="1">
                                 <layer n="1">
                                   <tuplet xml:id="group0" quantifier="+" num="1" numbase="1" type="quantifier" num.visible="true" num.format="ratio">
                                     <beam>
-                                        <note xml:id="m0_s2_e1" pname="c" oct="5" dur="8" dots="1" accid="s"/>
-                                        <note xml:id="m0_s2_e2" pname="d" oct="5" dur="16" />
-                                        <note xml:id="m0_s2_e1" pname="c" oct="5" dur="8" accid="s"/>
+                                        <note pname="c" oct="5" dur="8" dots="1" accid="s"/>
+                                        <note pname="d" oct="5" dur="16" />
+                                        <note pname="c" oct="5" dur="8" accid="s"/>
                                     </beam>
-                                    <note type="or" pname="e" dur="4" oct="4" />
-                                    <beam>
-                                        <note xml:id="m0_s2_e1" pname="b" oct="4" dur="8" dots="1" />
-                                        <note xml:id="m0_s2_e2" pname="c" oct="5" dur="16" accid="s"/>
-                                        <note xml:id="m0_s2_e1" pname="b" oct="4" dur="8" />
-                                    </beam>
+                                    <note type="or" pname="f" dur="4" oct="4" stem.len="6"/>
+                                    <note pname="c" oct="5" dur="4" artic="ten" />
+                                    <note pname="c" oct="5" dur="8" artic="ten" />
                                   </tuplet>
                                 </layer>
                             </staff>

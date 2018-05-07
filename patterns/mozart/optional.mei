@@ -17,16 +17,13 @@
                             <staff n="1">
                                 <layer n="1">
                                     <beam>
-                                        <note pname="c" oct="5" dur="8" dots="1" accid="s"/>
-                                        <note pname="d" oct="5" dur="16" />
-                                        <note pname="c" oct="5" dur="8" accid="s"/>
-                                    </beam>
-                                    <note type="or" pname="f" dur="4" oct="4" stem.len="6"/>
-                                    <beam>
-                                        <note pname="b" oct="4" dur="8" dots="1" />
-                                        <note pname="c" oct="5" dur="16" accid="s"/>
-                                        <note pname="b" oct="4" dur="8" />
-                                    </beam>
+                                        <note pname="c" oct="5" dur="8" dots="1" artic="ten"/>
+                                        <note pname="c" oct="5" dur="16" artic="ten"/>
+                                        <note pname="c" oct="5" dur="8" artic="ten"/>
+                                      </beam>
+                                      <tuplet xml:id="group0" quantifier="?" num="1" numbase="1" type="quantifier" num.visible="true" num.format="ratio" bracket.visible="false">
+                                        <note pname="e" oct="5" dur="4" />
+                                      </tuplet>
                                 </layer>
                             </staff>
                         </measure>

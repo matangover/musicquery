@@ -17,9 +17,9 @@
                             <staff n="1">
                                 <layer n="1">
                                     <beam>
-                                        <note xml:id="m0_s2_e1" pname="c" oct="5" dur="8" dots="1" accid="s"/>
-                                        <note xml:id="m0_s2_e2" pname="d" oct="5" dur="16" />
-                                        <note xml:id="m0_s2_e1" pname="c" oct="5" dur="8" accid="s"/>
+                                        <note pname="c" oct="5" dur="8" dots="1" accid="s"/>
+                                        <note pname="d" oct="5" dur="16" />
+                                        <note pname="c" oct="5" dur="8" accid="s"/>
                                     </beam>
                                 </layer>
                             </staff>

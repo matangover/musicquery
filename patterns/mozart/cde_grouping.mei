@@ -19,7 +19,7 @@
                                   <note pname="c" oct="5" dur="4" accid="s" stem.visible="false" />
                                   <tuplet xml:id="group0" quantifier="+" num="1" numbase="1" type="quantifier" num.visible="true" num.format="ratio">
                                     <note pname="c" oct="5" dur="8" accid="s" />
-                                    <note type="or" pname="e" dur="4" oct="5" stem.len="6"/>
+                                    <note type="or" pname="f" dur="4" oct="4" stem.len="6"/>
                                     <note pname="d" oct="5" dur="16"  />
                                     <space dur="8"/>
                                   </tuplet>

@@ -16,11 +16,11 @@
                         <measure n="0">
                             <staff n="1">
                                 <layer n="1">
-                                  <note xml:id="m0_s2_e1" pname="a" oct="4" dur="4" stem.visible="false" />
-                                  <tuplet xml:id="group0" quantifier="*" num="1" numbase="1" type="quantifier" num.visible="true" num.format="ratio">
-                                    <note xml:id="m0_s2_e1" pname="b" oct="4" dur="8" stem.visible="false" />
+                                  <note pname="a" oct="4" dur="4" stem.visible="false" />
+                                  <tuplet xml:id="group0" quantifier="*" num="1" numbase="1" type="quantifier" num.visible="true" num.format="ratio" bracket.visible="false">
+                                    <note pname="b" oct="4" dur="8" stem.visible="false" />
                                   </tuplet>
-                                  <note xml:id="m0_s2_e1" pname="c" oct="5" dur="4" accid="s" stem.visible="false" />
+                                  <note pname="c" oct="5" dur="4" accid="s" stem.visible="false" />
                                 </layer>
                             </staff>
                         </measure>
