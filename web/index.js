@@ -66,12 +66,7 @@ $(function() {
     render(data, $("#humdrum-output"));
   });
   $("#search").click(search);
-  $("#reset").click(function() {
-    $.get("/scores/mozart_melody.krn", function(data) {
-      $("#humdrum-input").val(data);
-      render(data, $("#humdrum-output"));
-    });
-  });
+  $("#clear").click(clear);
 });
 $(window).resize(function() {
   render($("#input").val(), $("#output"));
@@ -225,4 +220,11 @@ function initializeSymbolDefinitions() {
       }
     });
   }
+}
+
+function clear() {
+  $.get("/scores/mozart_melody.krn", function(data) {
+    $("#humdrum-input").val(data);
+    render(data, $("#humdrum-output"));
+  });
 }

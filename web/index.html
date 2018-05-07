@@ -14,14 +14,14 @@
 
     <nav class="navbar navbar-expand navbar-dark bg-dark">
       <a class="navbar-brand" href="#">MusicQuery</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01">
         <span class="navbar-toggler-icon"></span>
       </button>
 
       <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="#">Home</span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">About</a>
@@ -35,10 +35,20 @@
     <div class="page-content">
 
       <div class="query">
-        <div class="controls">
-          <button id="search">Search</button>
-          <button id="reset">Reset</button>
+        <div class="search-controls">
+          <div class="btn-group">
+            <button id="search" type="button" class="btn btn-primary">Search</button>
+            <button id="clear" type="button" class="btn btn-outline-secondary">Clear</button>
+          </div>
+          <div class="btn-group">
+            <button class="btn btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown">Examples</button>
+            <div class="dropdown-menu">
+              <button class="dropdown-item">Mozart Sonata</button>
+              <button class="dropdown-item">Bach Chorale</button>
+            </div>
+          </div>
         </div>
+
         <textarea id="input" class="input">
           </textarea>
         <div id="output" class="output score-container"></div>
@@ -53,10 +63,10 @@
               <a class="nav-link" data-toggle="tab" href="#score-text">Text</a>
             </li>
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Score</a>
+              <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button">Score</a>
               <div class="dropdown-menu">
-                <a class="dropdown-item active" href="#">Mozart Sonata</a>
-                <a class="dropdown-item" href="#">Bach Chorale</a>
+                <button class="dropdown-item active">Mozart Sonata</a>
+                <button class="dropdown-item">Bach Chorale</a>
               </div>
             </li>
           </ul>
