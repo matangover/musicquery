@@ -52,3 +52,9 @@ body {
 .controls {
   padding: 10px;
 }
+
+.query .input {
+  font-size: 14px;
+  white-space: nowrap;
+  font-family: "Courier New", Courier, monospace;
+}
