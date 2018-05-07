@@ -58,11 +58,11 @@ $(function() {
   $("#humdrum-input").on("input", function() {
     render($("#humdrum-input").val(), $("#humdrum-output"));
   });
-  $.get("/patterns/mozart/siciliana.mei", function(data) {
+  $.get("patterns/mozart/siciliana.mei", function(data) {
     $("#input").val(data);
     render(data, $("#output"));
   });
-  $.get("/scores/mozart_melody.krn", function(data) {
+  $.get("scores/mozart_melody.krn", function(data) {
     initialScore = data;
     $("#humdrum-input").val(data);
     render(data, $("#humdrum-output"));
