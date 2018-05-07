@@ -2,6 +2,7 @@
 <head>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <!-- <script src="http://www.verovio.org/javascript/latest/verovio-toolkit.js"></script> -->
+  <script src="https://unpkg.com/popper.js@1.14.3/dist/umd/popper.min.js"></script>
   <script src="resources/verovio-toolkit-hum.develop.abd180c.js"></script>
   <script src="resources/js/bootstrap.min.js"></script>
   <script src="index.js"></script>
@@ -44,9 +45,30 @@
       </div>
 
       <div class="score">
-          <textarea id="humdrum-input" class="input">
-          </textarea>
-          <div id="humdrum-output" class="output"></div>
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a class="nav-link active" data-toggle="tab" href="#score-music">Music</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#score-text">Text</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Score</a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item active" href="#">Mozart Sonata</a>
+                <a class="dropdown-item" href="#">Bach Chorale</a>
+              </div>
+            </li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane fade show active" id="score-music">
+              <div id="humdrum-output" class="output"></div>
+            </div>
+            <div class="tab-pane fade" id="score-text">
+              <textarea id="humdrum-input" class="input">
+              </textarea>
+            </div>
+          </div>
       </div>
 
     </div>

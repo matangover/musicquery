@@ -26,6 +26,22 @@ body {
   width: 50%;
   display: flex;
   flex-direction: column;
+  padding: 10px;
+}
+
+.tab-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.tab-content > .tab-pane.active {
+  display: flex;
+}
+
+.tab-pane {
+  flex-direction: column;
+  flex: 1;
 }
 
 .input {
@@ -33,6 +49,12 @@ body {
 }
 
 .output {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.output svg {
   flex: 1;
 }
 
@@ -45,9 +67,6 @@ body {
     src: url("/web/Leipzig-5.2.ttf");
 } */
 
-#humdrum-input {
-  display: none;
-}
 
 .controls {
   padding: 10px;
