@@ -4,9 +4,10 @@ var symbolDefinitions = "";
 function render(data, output) {
   try {
     scale = 40;
+    var container = output.closest(".score-container");
     var svg = vrvToolkit.renderData(data, {
-      pageHeight: output.height() / (scale / 100),
-      pageWidth: output.width() / (scale / 100),
+      pageHeight: container.height() / (scale / 100),
+      pageWidth: container.width() / (scale / 100),
       scale: scale
     });
   } catch (e) {
