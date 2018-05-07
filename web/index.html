@@ -3,23 +3,53 @@
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <!-- <script src="http://www.verovio.org/javascript/latest/verovio-toolkit.js"></script> -->
   <script src="resources/verovio-toolkit-hum.develop.abd180c.js"></script>
+  <script src="resources/js/bootstrap.min.js"></script>
   <script src="index.js"></script>
   <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="resources/css/bootstrap.min.css">
 </head>
 <body>
-  <div class="container">
-    <textarea id="input" class="input">
-    </textarea>
-    <div id="output" class="output"></div>
-  </div>
-  <div>
-    <button id="search">Search</button>
-    <button id="reset">Reset</button>
-  </div>
-  <div class="container">
-    <textarea id="humdrum-input" class="input">
-    </textarea>
-    <div id="humdrum-output" class="output"></div>
-  </div>
+  <div class="page-container">
+
+    <nav class="navbar navbar-expand navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">MusicQuery</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+        </ul>
+        <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+      </div>
+    </nav>
+
+
+    <div class="page-content">
+
+      <div class="query">
+        <div class="controls">
+          <button id="search">Search</button>
+          <button id="reset">Reset</button>
+        </div>
+        <textarea id="input" class="input">
+          </textarea>
+        <div id="output" class="output"></div>
+      </div>
+
+      <div class="score">
+          <textarea id="humdrum-input" class="input">
+          </textarea>
+          <div id="humdrum-output" class="output"></div>
+      </div>
+
+    </div>
+
 </body>
 </html>
