@@ -1,5 +1,6 @@
 var vrvToolkit;
 var symbolDefinitions = "";
+var initialScore = null;
 
 function render(data, output) {
   try {
@@ -62,11 +63,19 @@ $(function() {
     render(data, $("#output"));
   });
   $.get("/scores/mozart_melody.krn", function(data) {
+    initialScore = data;
     $("#humdrum-input").val(data);
     render(data, $("#humdrum-output"));
   });
   $("#search").click(search);
   $("#clear").click(clear);
+
+  $(".pattern-examples .dropdown-item").click(function () {
+    var pattern = $(this).data("target");
+    loadPattern(pattern);
+    $(this).parent().children(".dropdown-item.active").removeClass("active");
+    $(this).addClass("active");
+  });
 });
 $(window).resize(function() {
   render($("#input").val(), $("#output"));
@@ -170,6 +179,7 @@ function getRegexForOr(element) {
 }
 
 function search() {
+  clear();
   var pattern = meiToRegex();
   var data = $("#humdrum-input").val();
   console.log(pattern);
@@ -223,8 +233,18 @@ function initializeSymbolDefinitions() {
 }
 
 function clear() {
-  $.get("/scores/mozart_melody.krn", function(data) {
-    $("#humdrum-input").val(data);
-    render(data, $("#humdrum-output"));
+  if (initialScore === null) {
+    return;
+  }
+
+  $("#humdrum-input").val(initialScore);
+  render(initialScore, $("#humdrum-output"));
+}
+
+function loadPattern(pattern) {
+  $.get(pattern, function(data) {
+    $("#input").val(data);
+    render(data, $("#output"));
+    search();
   });
 }

@@ -40,11 +40,21 @@
             <button id="search" type="button" class="btn btn-primary">Search</button>
             <button id="clear" type="button" class="btn btn-outline-secondary">Clear</button>
           </div>
-          <div class="btn-group">
+          <div class="btn-group pattern-examples">
             <button class="btn btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown">Examples</button>
             <div class="dropdown-menu">
-              <button class="dropdown-item">Mozart Sonata</button>
-              <button class="dropdown-item">Bach Chorale</button>
+              <button class="dropdown-item active" data-target="/patterns/mozart/siciliana.mei">Rhythm only</button>
+              <button class="dropdown-item" data-target="/patterns/mozart/siciliana_specific_pitches.mei">Exact notes</button>
+              <button class="dropdown-item" data-target="/patterns/mozart/pitch_only.mei">Pitch only</button>
+              <button class="dropdown-item" data-target="/patterns/mozart/siciliana_or.mei">Or operator</button>
+              <button class="dropdown-item" data-target="/patterns/mozart/optional.mei">Optional</button>
+              <button class="dropdown-item" data-target="/patterns/mozart/abc_grouping.mei">One or more</button>
+              <button class="dropdown-item" data-target="/patterns/mozart/abc_grouping_star.mei">Zero or more</button>
+              <button class="dropdown-item" data-target="/patterns/mozart/grouping_quantifiers.mei">Group quantifier</button>
+              <button class="dropdown-item" data-target="/patterns/mozart/siciliana_grouping.mei">Grouping with Or</button>
+              <button class="dropdown-item" data-target="/patterns/mozart/abc_or_cde_grouping.mei">Or inside/outside group</button>
+              <button class="dropdown-item" data-target="/patterns/mozart/cde_grouping.mei">Quantifier with Or</button>
+              <button class="dropdown-item" data-target="/patterns/mozart/nested_grouping.mei">Nested grouping</button>
             </div>
           </div>
         </div>
@@ -66,7 +76,6 @@
               <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button">Score</a>
               <div class="dropdown-menu">
                 <button class="dropdown-item active">Mozart Sonata</a>
-                <button class="dropdown-item">Bach Chorale</a>
               </div>
             </li>
           </ul>
