@@ -53,13 +53,13 @@ $(function() {
   vrvToolkit = new verovio.toolkit();
   initializeSymbolDefinitions();
   $("#input").on("input", function() {
-    render($("#input").val(), $("#output"));
+    render(getPattern(), $("#output"));
   });
   $("#humdrum-input").on("input", function() {
     render($("#humdrum-input").val(), $("#humdrum-output"));
   });
   $.get("patterns/mozart/siciliana.mei", function(data) {
-    $("#input").val(data);
+    $("#input").val(getPatternContent(data));
     render(data, $("#output"));
   });
   $.get("scores/mozart_melody.krn", function(data) {
@@ -83,7 +83,7 @@ $(window).resize(function() {
 });
 
 function meiToRegex() {
-  var meiText = $("#input").val();
+  var meiText = getPattern();
   var meiPattern = $($.parseXML(meiText));
   var layer = meiPattern.find("music body mdiv score section measure staff layer");
   if (layer.length != 1) {
@@ -243,8 +243,32 @@ function clear() {
 
 function loadPattern(pattern) {
   $.get(pattern, function(data) {
-    $("#input").val(data);
+    $("#input").val(getPatternContent(data));
     render(data, $("#output"));
     search();
   });
+}
+
+function getPatternContent(pattern) {
+  var patternDoc = $($.parseXML(pattern));
+  var layer = patternDoc.find("music body mdiv score section measure staff layer");
+  var serialized = (new XMLSerializer()).serializeToString(layer[0]);
+  var lines = serialized.split("\n");
+  var contentLines = lines.slice(1, lines.length - 1);
+  var numLeadingSpaces = contentLines.map(function (line) {
+    return line.search(/[^ ]|$/);
+  });
+  var minLeadingSpaces = numLeadingSpaces.reduce(function(a, b) {
+    return Math.min(a, b);
+  });
+  var unindentedLines = contentLines.map(function (line) {
+    return line.substring(minLeadingSpaces);
+  });
+
+  return unindentedLines.join("\n");
+}
+
+function getPattern() {
+  var patternContent = $("#input").val();
+  return PATTERN_TEMPLATE.replace("PATTERN", patternContent);
 }
