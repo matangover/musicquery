@@ -1,5 +1,5 @@
 # MusicQuery
-Graphical query language for symbolic music. [Try it](http://www.matangover.com/musicquery)!
+A notation-based query language for symbolic music. [Try it](http://www.matangover.com/musicquery)!
 
 ![MusicQuery screenshot](/screenshot.png?raw=true)
 
@@ -7,38 +7,24 @@ Graphical query language for symbolic music. [Try it](http://www.matangover.com/
 The query language is inspired by text regular expressions. A search query is expressed as musical notation.
 The query is encoded in [MEI](http://music-encoding.org/). A query is a subset of a normal score, with some specific query semantics.
 ### Query semantics
-A query must be a valid MEI file and contain one `<measure>`. The measure can contain any of the following elements which define the query.
+A query must be a valid MEI excerpt contains any of the following elements.
 
 #### `<note>`
 Matches one note. Duration (`dur`), pitch name (`pname`), octave (`oct`) and accidentals (`accid`) are taken into account.
 * Accidentals must always be spelled out (a key signature of C major is assumed).
-* `accid="1qs"` ("1 quarter note sharp") matches any accidental, that is - any pitch with the specified note name and octave.
-* `artic="ten"` matches any pitch, that is, any note with the specified duration.
-* `stem.visible="false"` matches any duration, that is, any note with the specified pitch.
+* `query:any-duration="true"` matches any accidental, that is - any pitch with the specified note name and octave.
+* `query:any-pitch="true"` matches any pitch, that is, any note with the specified duration.
+* `query:any-duration="true"` matches any duration, that is, any note with the specified pitch.
 
-#### `<note type="or">`
+#### `<query:or>`
 Indicates an "or" operator (translates to the `|` regular expression operator). Rendered as a vertical line on the staff.
-For nice rendering, use the following parameters:
-```xml
-<note type="or" pname="f" dur="4" oct="4" stem.len="6" />
-```
 
-#### `<tuplet>`
-Used for grouping and quantifying. Corresponds to parentheses and quantifiers in regular expression. Can contain any other query element, including nested `<tuplet>`s.
+#### `<query:group>`
+Used for grouping and quantifying. Corresponds to parentheses and quantifiers in regular expression. Can contain any other query element, including nested `<query:group>`s.
 
-* `type="quantifier"` indicates the group has a quantifier.
-* `quantifier` indicates the quantifier to use: `*` for zero or more, `+` for one or more, `?` for zero or one.
-* Must define a unique `xml:id` attribute, for rendering.
-* It's recommended to set `num` and `numbase` to 1. `num.visible` and `num.format` should be set according to `quantifier` (see examples).
+Attributes `min-occurrences` and `max-occurrences` specify how many occurrences the group will match. For now only values that map to regular expression quantifiers `*` (zero or more), `+` (one or more), and `?` (zero or one) are supported.
 
-Example with quantifier:
-```xml
-<tuplet xml:id="group1" quantifier="+" num="1" numbase="1" type="quantifier" num.visible="true" num.format="ratio">
-```
-Example without quantifier (grouping only):
-```xml
-<tuplet num="1" numbase="1" num.visible="false">
-```
+Set `bracket.visible="false"` if you wish to hide a group's bracket.
 
 #### `<space>`
 Ignored. Can be used to adjust spacing for nicer rendering.
@@ -63,12 +49,12 @@ The query is translated behind the scenes to a regular expression and executed o
 
 The regular expression itself is complicated. It is possible to hand craft an expression, but it is error prone. For example, the following easy to read music query:
 ```xml
-<note pname="c" oct="5" dur="8" dots="1" artic="ten"/>
-<note pname="c" oct="5" dur="16" artic="ten"/>
-<note pname="c" oct="5" dur="8" artic="ten"/>
-<tuplet xml:id="group0" quantifier="?" num="1" numbase="1" type="quantifier" num.visible="true" num.format="ratio" bracket.visible="false">
+<note dur="8" dots="1" query:duration-only="true" />
+<note dur="16" query:duration-only="true" />
+<note dur="8" query:duration-only="true" />
+<query:group min-occurrences="0" max-occurrences="1" bracket.visible="false">
     <note pname="e" oct="5" dur="4" />
-</tuplet>
+</query:group>
 ```
 
 is translated to the following monstrous regular expression:
@@ -105,9 +91,6 @@ This project is a proof-of-concept. A lot of work has been done previously on sy
   - Transposition invariance (melodic intervals).
   - 'Any note' (any pitch and any rhythm).
   - Rests (including wildcards - "any rest").
-
-
-* The query should be encoded using a schema that is based on MEI but is not identical. Query elements should be semantic (`<or>`, `<group>`, `<quantifier>`) rather than graphical. An additional translation step should be made from the query schema to MEI that can be rendered by Verovio.
 
 
 * Users should be able to input a query using a graphical interface. The interface could be based on [Vida.js](https://github.com/DDMAL/vida.js) or [nCoda](https://ncodamusic.org/) (both are open source projects with a web-based notation editor).
