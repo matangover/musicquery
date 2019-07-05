@@ -254,25 +254,6 @@ function loadPattern(pattern, doSearch) {
   });
 }
 
-function getPatternContent(pattern) {
-  var patternDoc = $($.parseXML(pattern));
-  var layer = patternDoc.find("music body mdiv score section measure staff layer");
-  var serialized = (new XMLSerializer()).serializeToString(layer[0]);
-  var lines = serialized.split("\n");
-  var contentLines = lines.slice(1, lines.length - 1);
-  var numLeadingSpaces = contentLines.map(function (line) {
-    return line.search(/[^ ]|$/);
-  });
-  var minLeadingSpaces = numLeadingSpaces.reduce(function(a, b) {
-    return Math.min(a, b);
-  });
-  var unindentedLines = contentLines.map(function (line) {
-    return line.substring(minLeadingSpaces);
-  });
-
-  return unindentedLines.join("\n");
-}
-
 function getPattern() {
   var patternContent = $("#input").val();
   var fullPattern = PATTERN_TEMPLATE.replace("PATTERN", patternContent);
