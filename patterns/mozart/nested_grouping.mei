@@ -1,40 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="http://www.music-encoding.org/schema/3.0.0/mei-all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="http://www.music-encoding.org/schema/3.0.0/mei-all.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<mei xmlns="http://www.music-encoding.org/ns/mei" meiversion="3.0.0">
-    <meiHead/>
-    <music>
-        <body>
-            <mdiv>
-                <score>
-                    <scoreDef>
-                        <staffGrp>
-                            <staffDef n="1" lines="5" clef.line="2" clef.shape="G"/>
-                        </staffGrp>
-                    </scoreDef>
-                    <section>
-                        <measure n="0">
-                            <staff n="1">
-                                <layer n="1">
-                                  <note pname="b" oct="4" dur="8" stem.visible="false" />
-                                  <tuplet num="1" numbase="1" num.visible="false">
-                                    <tuplet xml:id="group0" quantifier="+" num="1" numbase="1" type="quantifier" num.visible="true" num.format="ratio">
-                                      <note pname="c" oct="5" dur="4" artic="ten" />
-                                      <note pname="c" oct="5" dur="8" artic="ten" />
-                                    </tuplet>
-                                    <note type="or" pname="f" dur="4" oct="4" stem.len="6"/>
-                                    <beam>
-                                      <note pname="c" oct="5" dur="8" dots="1" accid="s" />
-                                      <note pname="d" oct="5" dur="16" />
-                                    </beam>
-                                  </tuplet>
-                                  <note pname="c" oct="5" dur="4" accid="s" stem.visible="false" />
-                                </layer>
-                            </staff>
-                        </measure>
-                    </section>
-                </score>
-            </mdiv>
-        </body>
-    </music>
-</mei>
+<note pname="b" oct="4" query:any-duration="true" />
+<query:group>
+    <query:group min-occurrences="1">
+        <note dur="4" query:any-pitch="true" />
+        <note dur="8" query:any-pitch="true" />
+    </query:group>
+    <query:or />
+    <beam>
+        <note pname="c" oct="5" dur="8" dots="1" accid="s" />
+        <note pname="d" oct="5" dur="16" />
+    </beam>
+</query:group>
+<note pname="c" oct="5" accid="s" query:any-duration="true" />

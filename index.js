@@ -58,10 +58,7 @@ $(function() {
   $("#humdrum-input").on("input", function() {
     render($("#humdrum-input").val(), $("#humdrum-output"));
   });
-  $.get("patterns/mozart/siciliana.mei", function(data) {
-    $("#input").val(getPatternContent(data));
-    render(data, $("#output"));
-  });
+  loadPattern("patterns/mozart/siciliana.mei", false);
   $.get("scores/mozart_melody.krn", function(data) {
     initialScore = data;
     $("#humdrum-input").val(data);
@@ -72,7 +69,7 @@ $(function() {
 
   $(".pattern-examples .dropdown-item").click(function () {
     var pattern = $(this).data("target");
-    loadPattern(pattern);
+    loadPattern(pattern, true);
     $(this).parent().children(".dropdown-item.active").removeClass("active");
     $(this).addClass("active");
   });
@@ -180,7 +177,13 @@ function getRegexForOr(element) {
 
 function search() {
   clear();
-  var pattern = meiToRegex();
+  try {
+    var pattern = meiToRegex();
+  } catch (e) {
+    console.log(e);
+    alert('Invalid query.');
+    return;
+  }
   var data = $("#humdrum-input").val();
   console.log(pattern);
   // Multiline regex - treat "^" as "start of line" rather than "start of
@@ -241,11 +244,13 @@ function clear() {
   render(initialScore, $("#humdrum-output"));
 }
 
-function loadPattern(pattern) {
+function loadPattern(pattern, doSearch) {
   $.get(pattern, function(data) {
-    $("#input").val(getPatternContent(data));
-    render(data, $("#output"));
-    search();
+    $("#input").val(data);
+    render(getPattern(), $("#output"));
+    if (doSearch) {
+      search();
+    }
   });
 }
 
@@ -270,5 +275,70 @@ function getPatternContent(pattern) {
 
 function getPattern() {
   var patternContent = $("#input").val();
-  return PATTERN_TEMPLATE.replace("PATTERN", patternContent);
+  var fullPattern = PATTERN_TEMPLATE.replace("PATTERN", patternContent);
+  return convertToMEI(fullPattern);
+}
+
+function convertToMEI(patternText) {
+  try {
+    var pattern = $($.parseXML(patternText));
+  } catch (e) {
+    // Invalid query XML. Do nothing.
+    return patternText;
+  }
+  pattern.find('note').each(function (index, note) {
+    note = $(note);
+    if (note.attr('query:any-duration') === 'true') {
+      note.attr('stem.visible', 'false');
+      if (note.attr('dur') === undefined) {
+        note.attr('dur', '4');
+      }
+    }
+    if (note.attr('query:any-pitch') === 'true') {
+      note.attr('artic', 'ten');
+      if (note.attr('pname') === undefined && note.attr('oct') === undefined) {
+        note.attr('pname', 'c');
+        note.attr('oct', '5');
+      }
+    }
+    if (note.attr('query:any-accidental') === 'true') {
+      note.attr('accid', '1qs');
+    }
+  });
+  pattern.find('query\\:or').each(function (index, or) {
+    or = $(or);
+    var orNote = $('<note type="or" pname="f" dur="4" oct="4" stem.len="6" />');
+    or.replaceWith(orNote);
+  });
+  pattern.find('query\\:group').each(function (index, group) {
+    group = $(group);
+    var tuplet = $('<tuplet num="1" numbase="1" num.format="ratio" />');
+    //  bracket.visible="false"
+    tuplet.attr('xml:id', 'group' + index);
+    tuplet.append(group.children());
+    var min = group.attr('min-occurrences');
+    var max = group.attr('max-occurrences');
+    var quantifier = '';
+    if (min === undefined && max === undefined) {
+      tuplet.attr('num.visible', 'false');
+    } else {
+      tuplet.attr('type', 'quantifier');
+      var quantifier = '';
+      if (min === '0' && max === '1') {
+        quantifier = '?';
+      } else if (min === '1' && max === undefined) {
+        quantifier = '+';
+      } else {
+        quantifier = '*';
+        if (!(min === '0' && max === undefined)) {
+          console.log('Quantifiers {' + min + ', ' + max + '} not supported.' +
+            'Using "zero or more" instead.');
+        }
+      }
+      tuplet.attr('quantifier', quantifier);
+    }
+    tuplet.attr('bracket.visible', group.attr('bracket.visible'));
+    group.replaceWith(tuplet);
+  });
+  return (new XMLSerializer()).serializeToString(pattern[0]);
 }

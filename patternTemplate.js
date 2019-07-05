@@ -2,7 +2,7 @@ PATTERN_TEMPLATE = '\
 <?xml version="1.0" encoding="UTF-8"?>\
 <?xml-model href="http://www.music-encoding.org/schema/3.0.0/mei-all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>\
 <?xml-model href="http://www.music-encoding.org/schema/3.0.0/mei-all.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>\
-<mei xmlns="http://www.music-encoding.org/ns/mei" meiversion="3.0.0">\
+<mei xmlns="http://www.music-encoding.org/ns/mei" meiversion="3.0.0" xmlns:query="http://www.matangover.com/musicquery">\
     <meiHead/>\
     <music>\
         <body>\
